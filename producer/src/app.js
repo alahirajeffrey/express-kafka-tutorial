@@ -16,6 +16,10 @@ const kafka = new Kafka({
 // create producer
 const producer = kafka.producer();
 
+producer.on("producer.connect", () => {
+  console.log("Producer connected is ready");
+});
+
 // send message to consumer
 const sendMessage = async (message, topic) => {
   try {
@@ -40,7 +44,7 @@ app.post("/send", async (req, res) => {
 
   const message = { name: name, email: email, mobileNumber: mobileNumber };
 
-  await sendMessage(message, "express-kafka-totorial");
+  await sendMessage(message, "tutorial-topic");
   res.send({ message: "message sent" });
 });
 
